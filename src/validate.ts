@@ -18,9 +18,9 @@ NO RELEASE NOTES
 `;
 
 const RELEASE_NOTES_REGEX =
-  /^\-+\s*BEGIN RELEASE NOTES\s*\-+$\s*(.*)\s*^\-+\s*END RELEASE NOTES\s*\-+$/gms;
+  /^-+\s*BEGIN RELEASE NOTES\s*-+$\s*(.*)\s*^-+\s*END RELEASE NOTES\s*-+$/gms;
 
-const BULLET_POINT_REGEX = /^\s*[\*\-]\s*(.+)\s*$/gm;
+const BULLET_POINT_REGEX = /^\s*[*-]\s*(.+)\s*$/gm;
 
 export function getReleaseNotesFromPrBody(prBody: string): string[] {
   const releaseNotesMatches = prBody.matchAll(RELEASE_NOTES_REGEX);
