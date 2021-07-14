@@ -6261,13 +6261,13 @@ const RELEASE_NOTES_REGEX = /^-+\s*BEGIN RELEASE NOTES\s*-+$\s*(.*)\s*^-+\s*END 
 const BULLET_POINT_REGEX = /^\s*[*-]\s*(.+)\s*$/gm;
 function getReleaseNotesFromPrBody(prBody) {
     const releaseNotesMatches = prBody.matchAll(RELEASE_NOTES_REGEX);
-    if (!releaseNotesMatches) {
-        throw new Error(`Release notes section not found in PR body. Valid formats are: ${allowedFormats}`);
-    }
     // using ... to convert iterator to array
     const releaseNotesMatchesArray = [...releaseNotesMatches];
+    if (releaseNotesMatchesArray.length === 0) {
+        throw new Error(`Release notes section not found in PR body. Valid formats are: ${allowedFormats}`);
+    }
     if (releaseNotesMatchesArray.length !== 1) {
-        throw new Error(`Expected 1 release notes section in PR, but found ${releaseNotesMatchesArray.length}`);
+        throw new Error(`Expected 1 release notes section in PR, but found ${releaseNotesMatchesArray.length}. Valid formats are: ${allowedFormats}`);
     }
     const releaseNotesMatch = releaseNotesMatchesArray[0];
     if (releaseNotesMatch.length !== 2) {
