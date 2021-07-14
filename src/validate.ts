@@ -25,17 +25,16 @@ const BULLET_POINT_REGEX = /^\s*[*-]\s*(.+)\s*$/gm;
 export function getReleaseNotesFromPrBody(prBody: string): string[] {
   const releaseNotesMatches = prBody.matchAll(RELEASE_NOTES_REGEX);
 
-  if (!releaseNotesMatches) {
+  // using ... to convert iterator to array
+  const releaseNotesMatchesArray = [...releaseNotesMatches];
+  if (releaseNotesMatchesArray.length === 0) {
     throw new Error(
       `Release notes section not found in PR body. Valid formats are: ${allowedFormats}`
     );
   }
-
-  // using ... to convert iterator to array
-  const releaseNotesMatchesArray = [...releaseNotesMatches];
   if (releaseNotesMatchesArray.length !== 1) {
     throw new Error(
-      `Expected 1 release notes section in PR, but found ${releaseNotesMatchesArray.length}`
+      `Expected 1 release notes section in PR, but found ${releaseNotesMatchesArray.length}. Valid formats are: ${allowedFormats}`
     );
   }
 
