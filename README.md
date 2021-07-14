@@ -21,7 +21,7 @@ jobs:
         uses: wandb/auto-release-notes@main
 ```
 
-All PRs will now require well-formatted release notes -- or a NO RELEASE NOTES annotation --
+All PRs will now require well-formatted release notes -- or a `NO RELEASE NOTES` annotation --
 to pass CI. To make things easier for developers, you should probably also add this to your
 `pull_request_template.md`:
 
