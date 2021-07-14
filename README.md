@@ -6,7 +6,7 @@ Validate that PRs contain well-formatted release notes.
 
 Create the following `.github/workflow/pr.yml` file in your repo:
 
-```
+```yaml
 name: Validate that PR contains release notes
 
 on:
@@ -25,7 +25,7 @@ All PRs will now require well-formatted release notes -- or a NO RELEASE NOTES a
 to pass CI. To make things easier for developers, you should probably also add this to your
 `pull_request_template.md`:
 
-```
+```markdown
 ## Release Notes
 
 Below, please enter user-facing release notes as one or more bullet points. If your change is not user-visible, write `NO RELEASE NOTES` instead, with no bullet points.
