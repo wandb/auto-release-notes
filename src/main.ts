@@ -1,18 +1,29 @@
-import * as core from '@actions/core'
-import {wait} from './wait'
+import * as core from "@actions/core";
+import * as github from "@actions/github";
+
+import { getReleaseNotesFromPrBody } from './validate';
 
 async function run(): Promise<void> {
   try {
-    const ms: string = core.getInput('milliseconds')
-    core.debug(`Waiting ${ms} milliseconds ...`) // debug is only output if you set the secret `ACTIONS_RUNNER_DEBUG` to true
+    const pr = github.context.payload.pull_request;
 
-    core.debug(new Date().toTimeString())
-    await wait(parseInt(ms, 10))
-    core.debug(new Date().toTimeString())
+    if (!pr) {
+      throw new Error("Webhook paylaod had no pull request");
+    }
 
-    core.setOutput('time', new Date().toTimeString())
+    const releaseNotes = getReleaseNotesFromPrBody(pr.body || "");
+
+    if (releaseNotes.length === 0) {
+      core.info("This PR is marked as having no release notes ✅");
+      return;
+    }
+
+    core.info("Release notes identified: ✅");
+    core.info(
+      releaseNotes.map((releaseNote) => `* ${releaseNote}`).join("\n")
+    );
   } catch (error) {
-    core.setFailed(error.message)
+    core.setFailed(error.message);
   }
 }
 
