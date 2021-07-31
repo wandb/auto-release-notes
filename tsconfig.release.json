@@ -1,8 +1,0 @@
-{
-  "extends": "./tsconfig.json",
-  "files": ["./release.ts", "./release.d.ts"],
-  "compilerOptions": {
-    "outDir": "./",
-    "rootDir": "./"
-  }
-}

@@ -17,7 +17,8 @@ NO RELEASE NOTES
 ------------- END RELEASE NOTES --------------------
 `;
 
-const RELEASE_NOTES_REGEX = /^-+\s*BEGIN RELEASE NOTES\s*-+$\s*(.*)\s*^-+\s*END RELEASE NOTES\s*-+$/gms;
+const RELEASE_NOTES_REGEX =
+  /^-+\s*BEGIN RELEASE NOTES\s*-+$\s*(.*)\s*^-+\s*END RELEASE NOTES\s*-+$/gms;
 
 const BULLET_POINT_REGEX = /^\s*[*-]\s*(.+)\s*$/gm;
 
@@ -47,7 +48,7 @@ export function getReleaseNotesFromPrBody(prBody: string): string[] {
 
   const releaseNotesSection = releaseNotesMatch[1].trim();
 
-  if (releaseNotesSection === '') {
+  if (releaseNotesSection === "") {
     throw new Error(
       `Release notes section is empty. This is an error.
 
@@ -55,7 +56,7 @@ If you intend for this PR to have no release notes, please write \`NO RELEASE NO
     );
   }
 
-  if (releaseNotesSection.toUpperCase() === 'NO RELEASE NOTES') {
+  if (releaseNotesSection.toUpperCase() === "NO RELEASE NOTES") {
     return [];
   }
 
@@ -66,5 +67,5 @@ If you intend for this PR to have no release notes, please write \`NO RELEASE NO
     return [releaseNotesSection];
   }
 
-  return bulletsMatches.map(match => match[1]);
+  return bulletsMatches.map((match) => match[1]);
 }
