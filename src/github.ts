@@ -1,21 +1,21 @@
-import {Octokit} from '@octokit/rest'
-import {getReleaseNotesFromPrBody} from './parse'
+import {Octokit} from '@octokit/rest';
+import {getReleaseNotesFromPrBody} from './parse';
 
 export type Commit = {
-  sha: string
+  sha: string;
   commit: {
-    message: string
-  }
-}
+    message: string;
+  };
+};
 
 export type PullRequest = {
-  url: string
-  state: string
-  body: string | null
+  url: string;
+  state: string;
+  body: string | null;
   base: {
-    ref: string
-  }
-}
+    ref: string;
+  };
+};
 
 export async function getReleaseNotesForCommit(
   octokit: Octokit,
@@ -36,30 +36,30 @@ export async function getReleaseNotesForCommit(
         }
       }
     )
-  ).data
+  ).data;
 
   const pullsFiltered = pulls.filter(pull => {
     if (pull.state !== 'closed') {
       console.warn(
         `Commit ${commit.sha} (${commit.commit.message}) is associated with a PR in state "${pull.state}": ${pull.url}`
-      )
+      );
     }
 
-    return pull.state === 'closed' && pull.base.ref === 'master'
-  })
+    return pull.state === 'closed' && pull.base.ref === 'master';
+  });
 
   if (pullsFiltered.length !== 1) {
     console.warn(
       `Commit ${commit.sha} (${commit.commit.message}) is associated with ${pullsFiltered.length} closed master PRs:`
-    )
-    console.warn(pullsFiltered.map(pull => pull.url).join('\n'))
-    return null
+    );
+    console.warn(pullsFiltered.map(pull => pull.url).join('\n'));
+    return null;
   }
 
   try {
-    return getReleaseNotesFromPrBody(pullsFiltered[0].body || '')
+    return getReleaseNotesFromPrBody(pullsFiltered[0].body || '');
   } catch (e) {
-    return null
+    return null;
   }
 }
 
@@ -73,14 +73,14 @@ export async function getLastReleaseInfo(
     owner,
     repo,
     tag: lastReleaseTag
-  })
-  const lastReleaseSHA = res.data.target_commitish
-  const lastReleasePublishedAt = res.data.published_at
+  });
+  const lastReleaseSHA = res.data.target_commitish;
+  const lastReleasePublishedAt = res.data.published_at;
   console.log(
     'Grabbing all commits since',
     lastReleasePublishedAt,
     lastReleaseSHA
-  )
+  );
 
   // .paginate() resolves to an array of results from all pages combined:
   const commitsSinceLastRelease: Commit[] = await octokit.paginate(
@@ -90,13 +90,13 @@ export async function getLastReleaseInfo(
       repo,
       since: lastReleasePublishedAt
     }
-  )
+  );
 
   const githubInfo = {
     commitsSinceLastRelease,
     lastReleasePublishedAt,
     lastReleaseSHA
-  }
+  };
 
-  return githubInfo
+  return githubInfo;
 }
