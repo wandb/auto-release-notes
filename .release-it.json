@@ -7,6 +7,6 @@
   },
   "hooks": {
     "before:init": "yarn install --frozen-lockfile",
-    "after:bump": "yarn package"
+    "after:bump": "yarn package && yarn build"
   }
 }
