@@ -59,10 +59,6 @@ export async function getReleaseNotesForCommit(
     return null;
   }
 
-  console.log({
-    pullsFiltered: pullsFiltered.length
-  });
-
   try {
     return getReleaseNotesFromPrBody(pullsFiltered[0].body || '');
   } catch (e) {
