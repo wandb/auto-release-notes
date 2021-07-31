@@ -5,6 +5,9 @@
   "npm": {
     "publish": false
   },
+  "plugins": {
+    "./release.js": true
+  },
   "hooks": {
     "before:init": "yarn install --frozen-lockfile",
     "after:bump": "yarn package && yarn build"

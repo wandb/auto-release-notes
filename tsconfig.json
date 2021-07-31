@@ -20,5 +20,6 @@
     "node_modules",
     "**/*.test.ts",
     "lib",
+    "release.ts"
   ]
 }

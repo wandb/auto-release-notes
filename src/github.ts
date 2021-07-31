@@ -1,14 +1,14 @@
 import {Octokit} from '@octokit/rest'
 import {getReleaseNotesFromPrBody} from './parse'
 
-type Commit = {
+export type Commit = {
   sha: string
   commit: {
     message: string
   }
 }
 
-type PullRequest = {
+export type PullRequest = {
   url: string
   state: string
   body: string | null
@@ -93,7 +93,7 @@ export async function getLastReleaseInfo(
   )
 
   const githubInfo = {
-    recentCommits: commitsSinceLastRelease,
+    commitsSinceLastRelease,
     lastReleasePublishedAt,
     lastReleaseSHA
   }

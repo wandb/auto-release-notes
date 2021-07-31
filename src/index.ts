@@ -1,2 +1,7 @@
 export {getReleaseNotesFromPrBody} from './parse'
-export {getLastReleaseInfo, getReleaseNotesForCommit} from './github'
+export {
+  getLastReleaseInfo,
+  getReleaseNotesForCommit,
+  Commit,
+  PullRequest
+} from './github'
