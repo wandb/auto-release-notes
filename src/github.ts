@@ -45,16 +45,23 @@ export async function getReleaseNotesForCommit(
       );
     }
 
-    return pull.state === 'closed' && pull.base.ref === 'master';
+    return (
+      pull.state === 'closed' &&
+      (pull.base.ref === 'master' || pull.base.ref === 'main')
+    );
   });
 
   if (pullsFiltered.length !== 1) {
     console.warn(
-      `Commit ${commit.sha} (${commit.commit.message}) is associated with ${pullsFiltered.length} closed master PRs:`
+      `Commit ${commit.sha} (${commit.commit.message}) is associated with ${pullsFiltered.length} closed PRs against the main branch:`
     );
     console.warn(pullsFiltered.map(pull => pull.url).join('\n'));
     return null;
   }
+
+  console.log({
+    pullsFiltered: pullsFiltered.length
+  });
 
   try {
     return getReleaseNotesFromPrBody(pullsFiltered[0].body || '');
