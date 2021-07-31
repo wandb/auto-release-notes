@@ -14,8 +14,7 @@ const getReleaseNotesBuffer = (
     .map(commit => `* ${commit.commit.message.split('\n')[0]}`)
     .join('\n');
 
-  return `
-* ${formattedReleaseNotes}
+  return `* ${formattedReleaseNotes}
 
 
 ${
