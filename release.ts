@@ -1,4 +1,5 @@
 import {Octokit} from '@octokit/rest'
+import {edit} from 'external-editor'
 import {compact} from 'lodash'
 import {Plugin} from 'release-it'
 
@@ -14,7 +15,7 @@ const getReleaseNotesBuffer = (
     .join('\n')
 
   return `
-* ${formattedReleaseNotes}
+${formattedReleaseNotes}
 
 
 ${
@@ -46,7 +47,7 @@ class AutoReleaseNotesPlugin extends Plugin {
       octokit,
       'wandb',
       'auto-release-notes',
-      `v${latestVersion}`
+      `${latestVersion}`
     )
 
     const commitsToInspect: autoReleaseNotes.Commit[] = []
@@ -68,7 +69,12 @@ class AutoReleaseNotesPlugin extends Plugin {
     )
     const allReleaseNotes = compact(commitReleaseNotes).flat()
 
-    return getReleaseNotesBuffer(allReleaseNotes, commitsToInspect)
+    const defaultNotes = getReleaseNotesBuffer(
+      allReleaseNotes,
+      commitsToInspect
+    )
+
+    return edit(defaultNotes)
   }
 }
 
