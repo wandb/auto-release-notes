@@ -4,6 +4,7 @@
   "private": true,
   "description": "Enforce release notes conventions for PRs and generate a changelog upon release",
   "module": "lib/index.js",
+  "type": "commonjs",
   "scripts": {
     "build": "tsc -p tsconfig.lib.json",
     "build-release-plugin": "tsc -p tsconfig.release.json",

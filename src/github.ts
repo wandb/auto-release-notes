@@ -2,9 +2,21 @@ import {Octokit} from '@octokit/rest';
 import {getReleaseNotesFromPrBody} from './parse';
 
 export type Commit = {
+  url: string;
   sha: string;
+  html_url: string;
   commit: {
     message: string;
+    author: {
+      name: string;
+      email: string;
+      date: string;
+    };
+    committer: {
+      name: string;
+      email: string;
+      date: string;
+    };
   };
 };
 
