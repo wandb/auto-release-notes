@@ -1,8 +1,20 @@
 import { Octokit } from '@octokit/rest';
 export declare type Commit = {
+    url: string;
     sha: string;
+    html_url: string;
     commit: {
         message: string;
+        author: {
+            name: string;
+            email: string;
+            date: string;
+        };
+        committer: {
+            name: string;
+            email: string;
+            date: string;
+        };
     };
 };
 export declare type PullRequest = {
